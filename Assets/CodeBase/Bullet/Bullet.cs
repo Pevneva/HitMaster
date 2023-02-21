@@ -1,20 +1,26 @@
+﻿using System.Collections;
 using UnityEngine;
 
 namespace CodeBase.Bullet
 {
     public class Bullet : MonoBehaviour
     {
-        [SerializeField] private float _speed = 8;
+        private Coroutine _enablingCoroutine;
+        private const int LifeTime = 3;
 
-        private Vector3 _direction;
+        private void OnEnable() => 
+            _enablingCoroutine = StartCoroutine(StartEnablingTimer());
 
-        public void Construct(Vector3 direction) => 
-            _direction = direction;
-
-        private void Update()
+        private void OnDisable()
         {
-            if (_direction.magnitude > Constants.Epsilon)
-                transform.Translate(_direction * (Time.deltaTime * _speed));
+            if (_enablingCoroutine != null) 
+                StopCoroutine(_enablingCoroutine);
+        }
+
+        private IEnumerator StartEnablingTimer()
+        {
+            yield return new WaitForSeconds(LifeTime);
+            gameObject.SetActive(false);
         }
     }
 }
