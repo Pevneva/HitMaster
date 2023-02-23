@@ -19,16 +19,16 @@ namespace CodeBase.Infrastructure.Services.Factory
                 _parent = container;
                 for (int i = 0; i < capacity; i++)
                 {
-                    GameObject objectPool = assetProvider.Instantiate(prefab, container);
-                    objectPool.SetActive(false);
+                    GameObject objectPool = assetProvider.Instantiate(path: prefab, parent: container);
+                    objectPool.SetActive(value: false);
 
-                    _pool.Add(objectPool);
+                    _pool.Add(item: objectPool);
                 }
             }
 
             public bool TryGetObject(out GameObject result)
             {
-                result = _pool.FirstOrDefault(t => t.activeSelf == false);
+                result = _pool.FirstOrDefault(predicate: t => t.activeSelf == false);
             
                 if (result != null) 
                     result.transform.position = _parent.position;

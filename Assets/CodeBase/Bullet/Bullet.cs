@@ -5,22 +5,28 @@ namespace CodeBase.Bullet
 {
     public class Bullet : MonoBehaviour
     {
-        private Coroutine _enablingCoroutine;
         private const int LifeTime = 3;
+        
+        private Coroutine _enablingCoroutine;
+        private Transform _playerTransform;
+
+        public void Construct(Transform player) => 
+            _playerTransform = player;
 
         private void OnEnable() => 
-            _enablingCoroutine = StartCoroutine(StartEnablingTimer());
+            _enablingCoroutine = StartCoroutine(routine: StartEnablingTimer());
 
         private void OnDisable()
         {
             if (_enablingCoroutine != null) 
-                StopCoroutine(_enablingCoroutine);
+                StopCoroutine(routine: _enablingCoroutine);
         }
 
         private IEnumerator StartEnablingTimer()
         {
-            yield return new WaitForSeconds(LifeTime);
-            gameObject.SetActive(false);
+            yield return new WaitForSeconds(seconds: LifeTime);
+            gameObject.SetActive(value: false);
+            transform.parent = _playerTransform;
         }
     }
 }

@@ -15,17 +15,21 @@ namespace CodeBase.Infrastructure.Services.Factory
             _assetProvider = assetProvider;
 
         public void InitializePool(Transform parent) => 
-            _pool.Initialize(_assetProvider, AssetsPath.BulletPath, parent, Capacity);
+            _pool.Initialize(assetProvider: _assetProvider, prefab: AssetPath.BulletPath, container: parent, capacity: Capacity);
         
-        public GameObject CreateArrow(Transform parent)
+        public GameObject CreateBullet(Transform parent)
         {
-            if (_pool.TryGetObject(out GameObject arrow))
+            if (_pool.TryGetObject(result: out GameObject bullet))
             {
-                arrow.transform.parent.position = parent.position;
-                return arrow;
+                bullet.GetComponent<Bullet.Bullet>().Construct(parent);
+                bullet.GetComponent<Bullet.BulletAttack>().Construct(parent);
+                bullet.transform.parent.position = parent.position;
+                bullet.transform.parent = null;
+                bullet.transform.rotation = Quaternion.Euler(Vector3.zero);
+                return bullet;
             }
 
-            return _assetProvider.Instantiate(AssetsPath.BulletPath, parent.position);
+            return _assetProvider.Instantiate(path: AssetPath.BulletPath, at: parent.position);
         }
     }
 }
