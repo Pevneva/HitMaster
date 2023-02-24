@@ -2,7 +2,7 @@
 
 namespace CodeBase.StaticData
 {
-    [CreateAssetMenu(fileName = "StaticData", menuName = "Enemy / Create", order = 0)]
+    [CreateAssetMenu(fileName = "Enemy", menuName = "Enemy", order = 0)]
     public class EnemyStaticData : ScriptableObject
     {
         [Range(1, 100)] public int Hp = 10;

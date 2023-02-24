@@ -14,7 +14,13 @@ namespace CodeBase.Player
         private bool _enemiesAtPointDefeated;
         private bool _isMoving;
 
-        public float Speed => _agent.velocity.magnitude;
+        public float Velocity => _agent.velocity.magnitude;
+
+        public float SpeedAgent
+        {
+            get => _agent.speed;
+            set => _agent.speed = value;
+        } 
 
         public event Action WayPointReached;
 
@@ -64,6 +70,6 @@ namespace CodeBase.Player
             _nextPointPosition = _levelPathService.WayPointPosition(id);
 
         private bool IsPointReached() =>
-            Vector3.Distance(a: _agent.transform.position, b: _nextPointPosition) < 0.35f;
+            Vector3.Distance(a: _agent.transform.position, b: _nextPointPosition) < 0.35f; //AAA
     }
 }

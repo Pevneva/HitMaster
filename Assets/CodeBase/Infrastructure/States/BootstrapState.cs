@@ -45,6 +45,7 @@ namespace CodeBase.Infrastructure.States
             IStaticDataService staticData = new StaticDataService();
             staticData.LoadWayPoints();
             staticData.LoadEnemyData();
+            staticData.LoadPlayerData();
             _services.RegisterSingle(staticData);
         }
 

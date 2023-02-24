@@ -8,17 +8,24 @@ namespace CodeBase.Infrastructure.Services.StaticData
     {
         private LevelPathStaticData _wayPoints;
         private EnemyStaticData _enemyStaticData;
+        private PlayerStaticData _playerStaticData;
 
         public void LoadWayPoints() => 
-            _wayPoints = Resources.Load<LevelPathStaticData>(path: AssetPath.WayPointsPath);
+            _wayPoints = Resources.Load<LevelPathStaticData>(path: AssetPath.WayPointsDataPath);
         
         public void LoadEnemyData() => 
-            _enemyStaticData = Resources.Load<EnemyStaticData>(path: AssetPath.EnemyPath);
+            _enemyStaticData = Resources.Load<EnemyStaticData>(path: AssetPath.EnemyDataPath);
+        
+        public void LoadPlayerData() => 
+            _playerStaticData = Resources.Load<PlayerStaticData>(path: AssetPath.PlayeDataPath);
 
         public LevelPathStaticData LevelPathStaticData() => 
             _wayPoints;
         
         public EnemyStaticData EnemyStaticData() => 
-            _enemyStaticData;
+            _enemyStaticData; 
+        
+        public PlayerStaticData PlayerStaticData() => 
+            _playerStaticData;
     }
 }

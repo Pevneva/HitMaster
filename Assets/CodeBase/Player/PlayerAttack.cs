@@ -12,8 +12,13 @@ namespace CodeBase.Player
     public class PlayerAttack : MonoBehaviour
     {
         private const float ShootHeight = 1.25f;
-        private const float AttackCooldown = 0.5f;
-        private const float DeathDelay = 0.55f;
+        // private const float AttackCooldown = 0.5f;
+        // private const float DelayBeforeMoving = 0.55f;
+        // private const float DelayBeforeRestartLevel = 3;
+
+        public float AttackCooldown { get; set; }
+        public float DelayBeforeMoving { get; set; }
+        public float DelayBeforeRestartLevel { get; set; }
 
         private Transform _bulletContainer;
         private IInputService _inputService;
@@ -87,7 +92,7 @@ namespace CodeBase.Player
             {
                 _levelPathService.CurrentPointNumber = 0;
                 _bulletFactory.Clear();
-                Invoke(nameof(FinishCall), 3);
+                Invoke(nameof(FinishCall), DelayBeforeRestartLevel);
             }
         }
 
@@ -130,7 +135,7 @@ namespace CodeBase.Player
 
         private IEnumerator EnemiesDefeatedDelay()
         {
-            yield return new WaitForSeconds(DeathDelay);
+            yield return new WaitForSeconds(DelayBeforeMoving);
             EnemiesDefeated?.Invoke();
         }
     }

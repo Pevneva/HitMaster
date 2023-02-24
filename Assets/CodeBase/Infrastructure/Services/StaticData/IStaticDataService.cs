@@ -9,5 +9,7 @@ namespace CodeBase.Infrastructure.Services.StaticData
         void LoadWayPoints();
         void LoadEnemyData();
         EnemyStaticData EnemyStaticData();
+        void LoadPlayerData();
+        PlayerStaticData PlayerStaticData();
     }
 }

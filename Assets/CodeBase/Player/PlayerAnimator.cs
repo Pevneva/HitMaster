@@ -10,6 +10,6 @@ namespace CodeBase.Player
         [SerializeField] public PlayerMover _playerMover;
         
         private void Update() =>
-            _animator.SetBool(MoveHash, _playerMover.Speed > 0);
+            _animator.SetBool(MoveHash, _playerMover.Velocity > 0);
     }
 }

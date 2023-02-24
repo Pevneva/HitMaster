@@ -55,15 +55,21 @@ namespace CodeBase.Infrastructure.Services.Factory
 
         public GameObject CreatePlayer(Vector3 at)
         {
+            PlayerStaticData playerData = _staticData.PlayerStaticData();
+            
             GameObject player = Instantiate(AssetPath.PlayerPrefab, at);
 
             PlayerTransform = player.transform;
                 
             PlayerMover = player.GetComponent<PlayerMover>();
             PlayerMover.Construct(_levelPathService);
+            PlayerMover.SpeedAgent = playerData.Speed;
 
             PlayerAttack = player.GetComponent<PlayerAttack>();
             PlayerAttack.Construct(_inputService, _bulletFactory, _levelPathService);
+            PlayerAttack.AttackCooldown = playerData.AttackCooldown;
+            PlayerAttack.DelayBeforeMoving = playerData.DelayBeforeMoving;
+            PlayerAttack.DelayBeforeRestartLevel = playerData.DelayBeforeRestartLevel;
             
             return player;
         }

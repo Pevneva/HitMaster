@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace CodeBase.StaticData
 {
-    [CreateAssetMenu(fileName = "StaticData", menuName = "Level Path/Create", order = 0)]
+    [CreateAssetMenu(fileName = "LevelPath", menuName = "Level Path", order = 0)]
     public class LevelPathStaticData : ScriptableObject
     {
         public List<PointSpawnData> AllWayPoints;
