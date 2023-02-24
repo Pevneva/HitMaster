@@ -14,6 +14,8 @@ namespace CodeBase.Player
         private bool _enemiesAtPointDefeated;
         private bool _isMoving;
 
+        public float Speed => _agent.velocity.magnitude;
+
         public event Action WayPointReached;
 
         public void Construct(ILevelPathService levelPathService) =>
