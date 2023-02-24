@@ -4,14 +4,14 @@ using UnityEngine;
 
 namespace CodeBase.Editor
 {
-    [CustomEditor(inspectedType: typeof(EnemySpawnMarker))]
+    [CustomEditor(typeof(EnemySpawnMarker))]
     public class EnemySpawnMarkerEditor : UnityEditor.Editor
     {
-        [DrawGizmo(gizmo: GizmoType.Active | GizmoType.Pickable | GizmoType.NonSelected)]
+        [DrawGizmo(GizmoType.Active | GizmoType.Pickable | GizmoType.NonSelected)]
         public static void RenderCustomGizmo(EnemySpawnMarker point, GizmoType gizmo)
         {
             Gizmos.color = Color.red;
-            Gizmos.DrawSphere(center: point.transform.position, radius: 0.5f);
+            Gizmos.DrawSphere(point.transform.position, 0.35f);
         }
     }
 }

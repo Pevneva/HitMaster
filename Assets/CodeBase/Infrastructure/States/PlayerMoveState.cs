@@ -16,13 +16,9 @@ namespace CodeBase.Infrastructure.States
         public void Enter()
         {
             _factory.PlayerMover.WayPointReached += EnterAttackState;
-            _factory.PlayerMover.Finished += Restart;
             _factory.PlayerMover.MoveStateOn();
         }
-
-        private void Restart() => 
-            _stateMachine.Enter<BootstrapState>();
-
+        
         private void EnterAttackState()
         {
             _stateMachine.Enter<PlayerAttackState>();

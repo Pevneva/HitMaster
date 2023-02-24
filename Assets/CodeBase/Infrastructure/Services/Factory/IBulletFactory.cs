@@ -6,5 +6,6 @@ namespace CodeBase.Infrastructure.Services.Factory
     {
         void InitializePool(Transform parent);
         GameObject CreateBullet(Transform parent);
+        void Clear();
     }
 }

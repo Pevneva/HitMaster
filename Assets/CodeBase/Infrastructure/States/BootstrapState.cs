@@ -1,6 +1,8 @@
 ﻿using CodeBase.Infrastructure.Services;
 using CodeBase.Infrastructure.Services.AssetManagment;
 using CodeBase.Infrastructure.Services.Factory;
+using CodeBase.Infrastructure.Services.Input;
+using CodeBase.Infrastructure.Services.LevelPath;
 using CodeBase.Infrastructure.Services.StaticData;
 
 namespace CodeBase.Infrastructure.States
@@ -31,17 +33,17 @@ namespace CodeBase.Infrastructure.States
             RegisterStaticData();
             _services.RegisterSingle<IInputService>(new InputService());
             _services.RegisterSingle<IAssetProvider>(new AssetProvider());
+            _services.RegisterSingle<ILevelPathService>(new LevelPathService(_services.Single<IStaticDataService>()));
             _services.RegisterSingle<IBulletFactory>(new BulletFactory(_services.Single<IAssetProvider>()));
             _services.RegisterSingle<IGameFactory>(new GameFactory(_services.Single<IAssetProvider>(),
                 _services.Single<IStaticDataService>(), _services.Single<IInputService>(),
-                _services.Single<IBulletFactory>()));
+                _services.Single<IBulletFactory>(), _services.Single<ILevelPathService>()));
         }
 
         private void RegisterStaticData()
         {
             IStaticDataService staticData = new StaticDataService();
             staticData.LoadWayPoints();
-            staticData.LoadEnemiesPoints();
             _services.RegisterSingle(staticData);
         }
 

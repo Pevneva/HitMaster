@@ -1,4 +1,5 @@
-﻿using CodeBase.CameraLogic;
+﻿using System.Collections.Generic;
+using CodeBase.CameraLogic;
 using CodeBase.Infrastructure.Services.Factory;
 using CodeBase.Infrastructure.Services.StaticData;
 using CodeBase.Logic;
@@ -9,6 +10,8 @@ namespace CodeBase.Infrastructure.States
 {
     public class LoadSceneState : IPayloadedState<string>
     {
+        private const string WayPointsTag = "WayPointSpawnMarkers";
+        
         private readonly GameStateMachine _stateMachine;
         private readonly SceneLoader _sceneLoader;
         private readonly LoadingCurtain _loadingCurtain;
@@ -37,28 +40,17 @@ namespace CodeBase.Infrastructure.States
         private void OnLoaded()
         {
             InitGameWorld();
+            
             _stateMachine.Enter<BeforeStartState>();
         }
 
         private void InitGameWorld()
         {
-
-            var hero = InitPlayer();
+            GameObject hero = InitPlayer();
+            
             InitEnemies();
 
             CameraFollow(following: hero);
-        }
-
-        private void InitEnemies()
-        {
-            foreach (PointSpawnerData wayPoint in _staticData.GetAllWayPointsData().AllWayPointsWithEnemies)
-            {
-                foreach (var enemyPoint in wayPoint.EnemyDatas)
-                    _gameFactory.CreateEnemy(at: enemyPoint.Position);            
-            }
-            
-            // foreach (var enemyPoint in _staticData.GetAllEnemiesData().AllEnemySpawnerPoints)
-            //     _gameFactory.CreateEnemy(at: enemyPoint.Position);
         }
 
         private GameObject InitPlayer()
@@ -68,7 +60,19 @@ namespace CodeBase.Infrastructure.States
         }
 
         private Vector3 FirstWayPointPosition() => 
-            _staticData.GetAllWayPointsData().AllWayPointsWithEnemies[index: 0].At;
+            _staticData.LevelPathStaticData().AllWayPoints[index: 0].At;
+
+        private void InitEnemies()
+        {
+            GameObject spawnParent = GameObject.FindGameObjectWithTag(WayPointsTag);
+            List<PointSpawnData> pointSpawnerDatas = _staticData.LevelPathStaticData().AllWayPoints;
+            
+            for (int i = 1; i < pointSpawnerDatas.Count; i++)
+            {
+                foreach (var enemyPoint in pointSpawnerDatas[i].EnemyDatas)
+                    _gameFactory.CreateEnemy(at: enemyPoint.Position, spawnParent.transform.GetChild(i-1));
+            }
+        }
 
         private void CameraFollow(GameObject following)
         {

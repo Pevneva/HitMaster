@@ -15,16 +15,22 @@ namespace CodeBase.Infrastructure.States
 
         public void Enter()
         {
+            _factory.PlayerAttack.Finished += Restart;
+            
             _factory.PlayerAttack.AttackStateOn();
             _factory.PlayerAttack.EnemiesDefeated += EnterMovingState;
         }
 
+        public void Exit() => _factory.PlayerAttack.AttackStateOff();
+
         private void EnterMovingState()
         {
+            _factory.PlayerAttack.Finished -= Restart;
             _factory.PlayerAttack.EnemiesDefeated -= EnterMovingState;
             _stateMachine.Enter<PlayerMoveState>();
         }
 
-        public void Exit() => _factory.PlayerAttack.AttackStateOff();
+        private void Restart() => 
+            _stateMachine.Enter<BootstrapState>();
     }
 }

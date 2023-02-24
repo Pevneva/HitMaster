@@ -5,9 +5,7 @@ namespace CodeBase.Infrastructure.Services.StaticData
 {
     public interface IStaticDataService : IService
     {
-        LevelPathStaticData GetAllWayPointsData();
+        LevelPathStaticData LevelPathStaticData();
         void LoadWayPoints();
-        void LoadEnemiesPoints();
-        EnemySpawnPointsStaticData GetAllEnemiesData();
     }
 }

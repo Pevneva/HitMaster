@@ -6,6 +6,6 @@ namespace CodeBase.StaticData
     [CreateAssetMenu(fileName = "StaticData", menuName = "Level Path/Create", order = 0)]
     public class LevelPathStaticData : ScriptableObject
     {
-        public List<PointSpawnerData> AllWayPointsWithEnemies;
+        public List<PointSpawnData> AllWayPoints;
     }
 }

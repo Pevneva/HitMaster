@@ -5,5 +5,6 @@
         public static string BulletPath = "Bullet/Bullet";
         public static string PlayerPrefab = "Player/Player";
         public static string EnemyPrefab = "Enemy/Enemy";
+        public static string WayPointsPath = "StaticData/LevelPath";
     }
 }

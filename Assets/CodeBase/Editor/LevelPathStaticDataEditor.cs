@@ -8,9 +8,8 @@ using UnityEngine;
 namespace CodeBase.Editor
 {
     [CustomEditor(typeof(LevelPathStaticData))]
-    public class AllWayPointsStaticDataEditor : UnityEditor.Editor
+    public class LevelPathStaticDataEditor : UnityEditor.Editor
     {
-        private int _index;
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
@@ -19,19 +18,18 @@ namespace CodeBase.Editor
 
             if (GUILayout.Button("Collect"))
             {
-                var wayPointMarkers =
-                    FindObjectOfType<WayPointSpawnMarkers>()
-                        .GetComponentsInChildren<WayPointSpawnMarker>();
+                WayPointMarker[] wayPointMarkers =
+                    FindObjectOfType<LevelPathMarker>()
+                        .GetComponentsInChildren<WayPointMarker>();
                 
-                pointsData.AllWayPointsWithEnemies =
+                pointsData.AllWayPoints =
                     wayPointMarkers
-                        .Select(x => new PointSpawnerData(++_index,x.transform.position, 
+                        .Select(x => new PointSpawnData(x.transform.position,
+                            x.GetComponentsInChildren<EnemySpawnMarker>().Length,
                             x.GetComponentsInChildren<EnemySpawnMarker>()
-                            .Select(y => new EnemySpawnData(y.transform.position))
-                            .ToList()))
+                                .Select(y => new EnemySpawnData(y.transform.position))
+                                .ToList()))
                         .ToList();
-
-                _index = 0;
             }
             
             EditorUtility.SetDirty(target);

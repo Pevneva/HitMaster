@@ -14,7 +14,7 @@ namespace CodeBase.Bullet
         
         private void OnTriggerEnter(Collider hittable)
         {
-            hittable.transform.parent.GetComponent<IEnemyHealth>().TakeDamage(_damage);
+            hittable.transform.parent.GetComponent<EnemyHealth>().TakeDamage(_damage);
             gameObject.SetActive(false);
             transform.parent = _playerTransform;
         }

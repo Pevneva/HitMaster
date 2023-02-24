@@ -19,10 +19,10 @@ namespace CodeBase.Infrastructure.Services.Factory
                 _parent = container;
                 for (int i = 0; i < capacity; i++)
                 {
-                    GameObject objectPool = assetProvider.Instantiate(path: prefab, parent: container);
-                    objectPool.SetActive(value: false);
+                    GameObject poolObject = assetProvider.Instantiate(path: prefab, parent: container);
+                    poolObject.SetActive(value: false);
 
-                    _pool.Add(item: objectPool);
+                    _pool.Add(item: poolObject);
                 }
             }
 
@@ -35,6 +35,8 @@ namespace CodeBase.Infrastructure.Services.Factory
             
                 return result != null;
             }
+
+            public void Clear() => _pool.Clear();
         }
     }
 }

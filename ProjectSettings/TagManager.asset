@@ -6,6 +6,7 @@ TagManager:
   tags:
   - LoadingCurtain
   - WayPoint
+  - WayPointSpawnMarkers
   layers:
   - Default
   - TransparentFX

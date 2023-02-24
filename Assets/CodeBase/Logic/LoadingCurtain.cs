@@ -7,10 +7,8 @@ namespace CodeBase.Logic
     {
         public CanvasGroup Curtain;
 
-        private void Awake()
-        {
+        private void Awake() => 
             DontDestroyOnLoad(target: this);
-        }
 
         public void Show()
         {

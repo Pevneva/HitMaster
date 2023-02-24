@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace CodeBase.Infrastructure.Services
+namespace CodeBase.Infrastructure.Services.Input
 {
     public class InputService : IInputService
     {
@@ -10,12 +10,12 @@ namespace CodeBase.Infrastructure.Services
         private static Vector3 ClickedPosition()
         {
             if (Tapped())
-                return Input.mousePosition;
+                return UnityEngine.Input.mousePosition;
 
             return Vector3.zero;
         }
 
         private static bool Tapped() => 
-            Input.GetMouseButtonUp(button: 0);
+            UnityEngine.Input.GetMouseButtonUp(button: 0);
     }
 }

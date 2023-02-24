@@ -1,5 +1,5 @@
 using System;
-using CodeBase.Infrastructure.Services.StaticData;
+using CodeBase.Infrastructure.Services.LevelPath;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -8,25 +8,19 @@ namespace CodeBase.Player
     public class PlayerMover : MonoBehaviour
     {
         [SerializeField] private NavMeshAgent _agent;
-        
+
+        private ILevelPathService _levelPathService;
         private Vector3 _nextPointPosition;
-        private int _currentPointIndex;
-        private bool _enemiesDefeated;
+        private bool _enemiesAtPointDefeated;
         private bool _isMoving;
-        private IStaticDataService _staticData;
 
         public event Action WayPointReached;
-        public event Action Finished;
 
-        public void Construct(IStaticDataService staticData) => 
-            _staticData = staticData;
+        public void Construct(ILevelPathService levelPathService) =>
+            _levelPathService = levelPathService;
 
-        private void Start()
-        {
-            _enemiesDefeated = true;
-        
-            ChangeWayPoint();
-        }
+        private void Start() => 
+            _enemiesAtPointDefeated = true;
 
         private void Update()
         {
@@ -36,19 +30,10 @@ namespace CodeBase.Player
             else if (IsPointReached())
             {
                 _isMoving = false;
-                _enemiesDefeated = false;
+                _enemiesAtPointDefeated = false;
                 _agent.enabled = false;
 
-                if (AllPointsFinished() == false)
-                {
-                    WayPointReached?.Invoke();
-
-                    ChangeWayPoint();
-                }
-                else
-                {
-                    Finished?.Invoke();
-                }
+                WayPointReached?.Invoke();
             }
         }
 
@@ -56,26 +41,25 @@ namespace CodeBase.Player
         {
             _agent.enabled = true;
             _isMoving = true;
-            _enemiesDefeated = true;
+            _enemiesAtPointDefeated = true;
+
+            ChangeWayPoint();
         }
 
         public void MoveStateOff() => _isMoving = false;
 
-        private bool AllPointsFinished() =>
-            _currentPointIndex >= _staticData.GetAllWayPointsData().AllWayPointsWithEnemies.Count - 1;
-
         private void ChangeWayPoint()
         {
-            _currentPointIndex++;
+            _levelPathService.CurrentPointNumber++;
 
-            UpdateWayPoint(id: _currentPointIndex);
+            UpdateWayPoint(id: _levelPathService.CurrentPointNumber);
         }
 
         private bool CanMove() =>
-            _isMoving && _enemiesDefeated && _nextPointPosition != Vector3.zero && IsPointReached() == false;
+            _isMoving && _enemiesAtPointDefeated && _nextPointPosition != Vector3.zero && IsPointReached() == false;
 
-        private void UpdateWayPoint(int id) => 
-            _nextPointPosition = _staticData.GetAllWayPointsData().AllWayPointsWithEnemies[index: id].At;
+        private void UpdateWayPoint(int id) =>
+            _nextPointPosition = _levelPathService.WayPointPosition(id);
 
         private bool IsPointReached() =>
             Vector3.Distance(a: _agent.transform.position, b: _nextPointPosition) < 0.35f;

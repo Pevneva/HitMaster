@@ -2,8 +2,9 @@
 using System.Collections;
 using CodeBase.Bullet;
 using CodeBase.Data;
-using CodeBase.Infrastructure.Services;
 using CodeBase.Infrastructure.Services.Factory;
+using CodeBase.Infrastructure.Services.Input;
+using CodeBase.Infrastructure.Services.LevelPath;
 using UnityEngine;
 
 namespace CodeBase.Player
@@ -12,6 +13,7 @@ namespace CodeBase.Player
     {
         private const float ShootHeight = 1.25f;
         private const float AttackCooldown = 0.5f;
+        private const float DeathDelay = 0.55f;
 
         private Transform _bulletContainer;
         private IInputService _inputService;
@@ -20,12 +22,18 @@ namespace CodeBase.Player
         private bool _isAttackState;
         private float _attackCooldown;
 
-        public event Action EnemiesDefeated;
+        private int _diedEnemiesCount;
+        private ILevelPathService _levelPathService;
 
-        public void Construct(IInputService inputService, IBulletFactory bulletFactory)
+        public event Action EnemiesDefeated;
+        public event Action Finished;
+
+        public void Construct(IInputService inputService, IBulletFactory bulletFactory,
+            ILevelPathService levelPathService)
         {
             _inputService = inputService;
             _bulletFactory = bulletFactory;
+            _levelPathService = levelPathService;
         }
 
         private void Start()
@@ -47,15 +55,43 @@ namespace CodeBase.Player
             Rotate(_attackDirection);
         }
 
-        private bool NotCanAttack() => 
+        private bool NotCanAttack() =>
             _isAttackState == false || CooldownIsUp() == false || NotTapped();
 
         public void AttackStateOn()
         {
             _isAttackState = true;
+            _diedEnemiesCount = 0;
             
-            StartCoroutine(AttackingTimer()); //todo
+            int enemiesOnPoint = _levelPathService.EnemiesCountAtPoint(_levelPathService.CurrentPointNumber);
+
+            CheckDiedEnemies(enemiesOnPoint);
         }
+
+        public void IncreaseDiedEnemies()
+        {
+            _diedEnemiesCount++;
+
+            int enemiesOnPoint = _levelPathService.EnemiesCountAtPoint(_levelPathService.CurrentPointNumber);
+
+            CheckDiedEnemies(enemiesOnPoint);
+        }
+
+        private void CheckDiedEnemies(int allEnemies)
+        {
+            if (_diedEnemiesCount == allEnemies && _levelPathService.LastPointReached() == false)
+            {
+                StartCoroutine(EnemiesDefeatedDelay());
+            }
+            else if (_diedEnemiesCount == allEnemies && _levelPathService.LastPointReached())
+            {
+                _levelPathService.CurrentPointNumber = 0;
+                _bulletFactory.Clear();
+                Invoke(nameof(FinishCall), 3);
+            }
+        }
+
+        private void FinishCall() => Finished?.Invoke();
 
         public void AttackStateOff() => _isAttackState = false;
 
@@ -73,10 +109,9 @@ namespace CodeBase.Player
         private Vector3 GetAttackDirection(Vector3 attackPosition)
         {
             Vector2 screenDirection = attackPosition - Camera.main.WorldToScreenPoint(transform.position);
-            
             Vector3 worldDirection = new Vector3(screenDirection.x, 0, screenDirection.y);
             worldDirection.Normalize();
-            
+
             return worldDirection;
         }
 
@@ -89,13 +124,13 @@ namespace CodeBase.Player
             bullet.transform.position = bullet.transform.position.AddY(ShootHeight);
             bullet.GetComponent<BulletMover>().Construct(direction);
             bullet.SetActive(true);
-            
+
             _attackCooldown = AttackCooldown;
         }
 
-        private IEnumerator AttackingTimer()
+        private IEnumerator EnemiesDefeatedDelay()
         {
-            yield return new WaitForSeconds(6);
+            yield return new WaitForSeconds(DeathDelay);
             EnemiesDefeated?.Invoke();
         }
     }

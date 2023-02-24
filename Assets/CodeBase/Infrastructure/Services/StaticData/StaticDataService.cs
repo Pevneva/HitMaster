@@ -1,26 +1,17 @@
-﻿using CodeBase.StaticData;
+﻿using CodeBase.Infrastructure.Services.AssetManagment;
+using CodeBase.StaticData;
 using UnityEngine;
 
 namespace CodeBase.Infrastructure.Services.StaticData
 {
     public class StaticDataService : IStaticDataService
     {
-        private const string SpawnersPath = "StaticData/Spawners/StaticData";
-        private const string EnemyPath = "StaticData/Enemy/StaticData";
-        
         private LevelPathStaticData _wayPoints;
-        private EnemySpawnPointsStaticData _enemiesPoints;
-        
+
         public void LoadWayPoints() => 
-            _wayPoints = Resources.Load<LevelPathStaticData>(path: SpawnersPath);  
-        
-        public void LoadEnemiesPoints() => 
-            _enemiesPoints = Resources.Load<EnemySpawnPointsStaticData>(path: EnemyPath);
+            _wayPoints = Resources.Load<LevelPathStaticData>(path: AssetPath.WayPointsPath);
 
-        public LevelPathStaticData GetAllWayPointsData() => 
+        public LevelPathStaticData LevelPathStaticData() => 
             _wayPoints;
-
-        public EnemySpawnPointsStaticData GetAllEnemiesData() => 
-            _enemiesPoints;
     }
 }

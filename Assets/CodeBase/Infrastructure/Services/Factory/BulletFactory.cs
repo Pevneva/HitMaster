@@ -15,11 +15,11 @@ namespace CodeBase.Infrastructure.Services.Factory
             _assetProvider = assetProvider;
 
         public void InitializePool(Transform parent) => 
-            _pool.Initialize(assetProvider: _assetProvider, prefab: AssetPath.BulletPath, container: parent, capacity: Capacity);
+            _pool.Initialize(_assetProvider, AssetPath.BulletPath, parent, Capacity);
         
         public GameObject CreateBullet(Transform parent)
         {
-            if (_pool.TryGetObject(result: out GameObject bullet))
+            if (_pool.TryGetObject(out GameObject bullet))
             {
                 bullet.GetComponent<Bullet.Bullet>().Construct(parent);
                 bullet.GetComponent<Bullet.BulletAttack>().Construct(parent);
@@ -29,7 +29,9 @@ namespace CodeBase.Infrastructure.Services.Factory
                 return bullet;
             }
 
-            return _assetProvider.Instantiate(path: AssetPath.BulletPath, at: parent.position);
+            return _assetProvider.Instantiate(AssetPath.BulletPath, parent.position);
         }
+        
+        public void Clear() => _pool.Clear();
     }
 }

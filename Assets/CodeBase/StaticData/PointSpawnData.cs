@@ -5,17 +5,18 @@ using UnityEngine;
 namespace CodeBase.StaticData
 {
     [Serializable]
-    public class PointSpawnerData
+    public class PointSpawnData
     {
-        public int Id;
+        [HideInInspector] public int EnemiesCount;
+        
         public Vector3 At;
         public List<EnemySpawnData> EnemyDatas;
 
-        public PointSpawnerData(int id, Vector3 at, List<EnemySpawnData> enemyDatas)
+        public PointSpawnData(Vector3 at, int enemiesCount, List<EnemySpawnData> enemyDatas)
         {
-            Id = id;
             At = at;
             EnemyDatas = enemyDatas;
+            EnemiesCount = enemiesCount;
         }
     }
 }

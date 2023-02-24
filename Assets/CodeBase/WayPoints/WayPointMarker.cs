@@ -2,8 +2,7 @@
 
 namespace CodeBase.WayPoints
 {
-    public class WayPointSpawnMarker : MonoBehaviour
+    public class WayPointMarker : MonoBehaviour
     {
-        
     }
 }
