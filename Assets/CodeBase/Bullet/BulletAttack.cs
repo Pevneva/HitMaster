@@ -1,4 +1,5 @@
 ﻿using CodeBase.Enemy;
+using CodeBase.Logic;
 using UnityEngine;
 
 namespace CodeBase.Bullet
@@ -14,7 +15,7 @@ namespace CodeBase.Bullet
         
         private void OnTriggerEnter(Collider hittable)
         {
-            hittable.transform.parent.GetComponent<EnemyHealth>().TakeDamage(_damage);
+            hittable.transform.parent.GetComponent<IHealth>().TakeDamage(_damage);
             gameObject.SetActive(false);
             transform.parent = _playerTransform;
         }

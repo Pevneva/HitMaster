@@ -3,7 +3,9 @@ using CodeBase.Infrastructure.Services.AssetManagment;
 using CodeBase.Infrastructure.Services.Input;
 using CodeBase.Infrastructure.Services.LevelPath;
 using CodeBase.Infrastructure.Services.StaticData;
+using CodeBase.Logic;
 using CodeBase.Player;
+using CodeBase.UI;
 using UnityEngine;
 
 namespace CodeBase.Infrastructure.Services.Factory
@@ -33,6 +35,10 @@ namespace CodeBase.Infrastructure.Services.Factory
         {
             GameObject enemy = Instantiate(AssetPath.EnemyPrefab, at);
             enemy.GetComponent<RotateToPlayer>().Construct(PlayerTransform);
+            
+            var health = enemy.GetComponent<IHealth>();
+            
+            enemy.GetComponent<ActorUI>().Construct(health);
             EnemyDeath = enemy.GetComponent<EnemyDeath>();
         }
 
