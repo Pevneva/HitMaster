@@ -9,7 +9,8 @@ namespace CodeBase.Enemy
         [SerializeField] private EnemyHealth _health;
         [SerializeField] private RigidBodySetter _rigidBodySetter;
 
-        private const float DeathTime = 1.7f;
+        // private const float DeathTime = 1.7f; AAA
+        public float DeathTime { get; set; }
 
         public event Action Happened;
 

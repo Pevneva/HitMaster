@@ -4,7 +4,7 @@ namespace CodeBase.Enemy
 {
     public class RotateToPlayer : MonoBehaviour
     {
-        [SerializeField] private float _speed = 3;
+        public float Speed { get; set; }
 
         private Transform _playerTransform;
         private Vector3 _positionToLook;
@@ -35,6 +35,6 @@ namespace CodeBase.Enemy
             => Quaternion.LookRotation(position);
 
         private float SpeedFactor() => 
-            _speed * Time.deltaTime;
+            Speed * Time.deltaTime;
     }
 }

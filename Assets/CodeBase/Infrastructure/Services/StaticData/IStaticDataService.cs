@@ -7,5 +7,7 @@ namespace CodeBase.Infrastructure.Services.StaticData
     {
         LevelPathStaticData LevelPathStaticData();
         void LoadWayPoints();
+        void LoadEnemyData();
+        EnemyStaticData EnemyStaticData();
     }
 }

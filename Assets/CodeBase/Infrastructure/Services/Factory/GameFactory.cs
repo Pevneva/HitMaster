@@ -5,6 +5,7 @@ using CodeBase.Infrastructure.Services.LevelPath;
 using CodeBase.Infrastructure.Services.StaticData;
 using CodeBase.Logic;
 using CodeBase.Player;
+using CodeBase.StaticData;
 using CodeBase.UI;
 using UnityEngine;
 
@@ -31,21 +32,23 @@ namespace CodeBase.Infrastructure.Services.Factory
             _levelPathService = levelPathService;
         }
 
-        public void CreateEnemy(Vector3 at)
+        public void CreateEnemy(Vector3 at, Transform parent)
         {
-            GameObject enemy = Instantiate(AssetPath.EnemyPrefab, at);
-            enemy.GetComponent<RotateToPlayer>().Construct(PlayerTransform);
+            EnemyStaticData enemyData = _staticData.EnemyStaticData();
             
-            var health = enemy.GetComponent<IHealth>();
+            GameObject enemy = Instantiate(AssetPath.EnemyPrefab, at, parent);
+            
+            RotateToPlayer rotateToPlayer = enemy.GetComponent<RotateToPlayer>();
+            rotateToPlayer.Construct(PlayerTransform);
+            rotateToPlayer.Speed = enemyData.SpeedRotateToPlayer;
+            
+            IHealth health = enemy.GetComponent<IHealth>();
+            health.Current = enemyData.Hp;
+            health.Max = enemyData.Hp;
             
             enemy.GetComponent<ActorUI>().Construct(health);
             EnemyDeath = enemy.GetComponent<EnemyDeath>();
-        }
-
-        public void CreateEnemy(Vector3 at, Transform parent)
-        {
-            GameObject enemy = Instantiate(AssetPath.EnemyPrefab, at, parent);
-            enemy.GetComponent<RotateToPlayer>().Construct(PlayerTransform);
+            EnemyDeath.DeathTime = enemyData.DelayAfterDeath;
 
             enemy.GetComponent<EnemyDeath>().Happened += PlayerAttack.IncreaseDiedEnemies;
         }
