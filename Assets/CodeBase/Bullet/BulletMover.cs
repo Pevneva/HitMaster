@@ -4,9 +4,9 @@ namespace CodeBase.Bullet
 {
     public class BulletMover : MonoBehaviour
     {
-        [SerializeField] private float _speed = 8;
-
         private Vector3 _direction;
+        
+        public float Speed { get; set; }
 
         public void Construct(Vector3 direction) => 
             _direction = direction;
@@ -14,7 +14,7 @@ namespace CodeBase.Bullet
         private void Update()
         {
             if (_direction.magnitude > Constants.Epsilon)
-                transform.Translate(_direction * (Time.deltaTime * _speed));
+                transform.Translate(_direction * (Time.deltaTime * Speed));
         }
     }
 }

@@ -34,7 +34,8 @@ namespace CodeBase.Infrastructure.States
             _services.RegisterSingle<IInputService>(new InputService());
             _services.RegisterSingle<IAssetProvider>(new AssetProvider());
             _services.RegisterSingle<ILevelPathService>(new LevelPathService(_services.Single<IStaticDataService>()));
-            _services.RegisterSingle<IBulletFactory>(new BulletFactory(_services.Single<IAssetProvider>()));
+            _services.RegisterSingle<IBulletFactory>(new BulletFactory(_services.Single<IAssetProvider>(), 
+                _services.Single<IStaticDataService>()));
             _services.RegisterSingle<IGameFactory>(new GameFactory(_services.Single<IAssetProvider>(),
                 _services.Single<IStaticDataService>(), _services.Single<IInputService>(),
                 _services.Single<IBulletFactory>(), _services.Single<ILevelPathService>()));
@@ -46,6 +47,7 @@ namespace CodeBase.Infrastructure.States
             staticData.LoadWayPoints();
             staticData.LoadEnemyData();
             staticData.LoadPlayerData();
+            staticData.LoadBulletData();
             _services.RegisterSingle(staticData);
         }
 

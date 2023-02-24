@@ -9,6 +9,7 @@ namespace CodeBase.Infrastructure.Services.StaticData
         private LevelPathStaticData _wayPoints;
         private EnemyStaticData _enemyStaticData;
         private PlayerStaticData _playerStaticData;
+        private BulletStaticData _bulletStaticData;
 
         public void LoadWayPoints() => 
             _wayPoints = Resources.Load<LevelPathStaticData>(path: AssetPath.WayPointsDataPath);
@@ -19,13 +20,19 @@ namespace CodeBase.Infrastructure.Services.StaticData
         public void LoadPlayerData() => 
             _playerStaticData = Resources.Load<PlayerStaticData>(path: AssetPath.PlayeDataPath);
 
+        public void LoadBulletData() => 
+            _bulletStaticData = Resources.Load<BulletStaticData>(path: AssetPath.BulletDataPath);
+
         public LevelPathStaticData LevelPathStaticData() => 
             _wayPoints;
-        
+
         public EnemyStaticData EnemyStaticData() => 
-            _enemyStaticData; 
-        
+            _enemyStaticData;
+
         public PlayerStaticData PlayerStaticData() => 
             _playerStaticData;
+        
+        public BulletStaticData BulletStaticData() => 
+            _bulletStaticData;
     }
 }

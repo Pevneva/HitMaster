@@ -1,5 +1,7 @@
-﻿using CodeBase.Infrastructure.Services.AssetManagment;
+﻿using CodeBase.Bullet;
+using CodeBase.Infrastructure.Services.AssetManagment;
 using CodeBase.Infrastructure.Services.Factory.CodeBase.Infrastructure.Services.Factory;
+using CodeBase.Infrastructure.Services.StaticData;
 using UnityEngine;
 
 namespace CodeBase.Infrastructure.Services.Factory
@@ -10,9 +12,13 @@ namespace CodeBase.Infrastructure.Services.Factory
         
         private readonly ObjectPool _pool = new ObjectPool();
         private readonly IAssetProvider _assetProvider;
+        private readonly IStaticDataService _staticData;
 
-        public BulletFactory(IAssetProvider assetProvider) => 
+        public BulletFactory(IAssetProvider assetProvider, IStaticDataService staticData)
+        {
             _assetProvider = assetProvider;
+            _staticData = staticData;
+        }
 
         public void InitializePool(Transform parent) => 
             _pool.Initialize(_assetProvider, AssetPath.BulletPath, parent, Capacity);
@@ -22,7 +28,13 @@ namespace CodeBase.Infrastructure.Services.Factory
             if (_pool.TryGetObject(out GameObject bullet))
             {
                 bullet.GetComponent<Bullet.Bullet>().Construct(parent);
-                bullet.GetComponent<Bullet.BulletAttack>().Construct(parent);
+                
+                BulletAttack bulletAttack = bullet.GetComponent<BulletAttack>();
+                bulletAttack.Damage = _staticData.BulletStaticData().Damage;
+                bulletAttack.Construct(parent);
+
+                bullet.GetComponent<BulletMover>().Speed = _staticData.BulletStaticData().Speed;
+                
                 bullet.transform.parent.position = parent.position;
                 bullet.transform.parent = null;
                 bullet.transform.rotation = Quaternion.Euler(Vector3.zero);

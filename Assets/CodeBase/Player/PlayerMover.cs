@@ -8,6 +8,7 @@ namespace CodeBase.Player
     public class PlayerMover : MonoBehaviour
     {
         [SerializeField] private NavMeshAgent _agent;
+        [SerializeField] private BoxCollider _collider;
 
         private ILevelPathService _levelPathService;
         private Vector3 _nextPointPosition;
@@ -70,6 +71,6 @@ namespace CodeBase.Player
             _nextPointPosition = _levelPathService.WayPointPosition(id);
 
         private bool IsPointReached() =>
-            Vector3.Distance(a: _agent.transform.position, b: _nextPointPosition) < 0.35f; //AAA
+            Vector3.Distance(a: _agent.transform.position, b: _nextPointPosition) < Constants.Epsilon + _collider.size.y/2;
     }
 }
