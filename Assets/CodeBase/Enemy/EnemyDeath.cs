@@ -1,4 +1,5 @@
 ﻿using System;
+using CodeBase.Logic;
 using UnityEngine;
 
 namespace CodeBase.Enemy
@@ -6,8 +7,9 @@ namespace CodeBase.Enemy
     public class EnemyDeath : MonoBehaviour
     {
         [SerializeField] private EnemyHealth _health;
+        [SerializeField] private RigidBodySetter _rigidBodySetter;
 
-        private const float DeathTime = 0.7f;
+        private const float DeathTime = 1.7f;
 
         public event Action Happened;
 
@@ -29,6 +31,8 @@ namespace CodeBase.Enemy
         private void Die()
         {
             _health.HealthChanged -= CheckDeath;
+            
+            _rigidBodySetter.TurnOffKinematic();
 
             Happened?.Invoke();
             Invoke(nameof(DestroyEnemy), DeathTime);
