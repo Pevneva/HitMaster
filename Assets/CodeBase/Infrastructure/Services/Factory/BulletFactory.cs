@@ -1,7 +1,7 @@
 ﻿using CodeBase.Bullet;
-using CodeBase.Infrastructure.Services.AssetManagment;
 using CodeBase.Infrastructure.Services.Factory.CodeBase.Infrastructure.Services.Factory;
 using CodeBase.Infrastructure.Services.StaticData;
+using CodeBase.StaticData;
 using UnityEngine;
 
 namespace CodeBase.Infrastructure.Services.Factory
@@ -11,17 +11,16 @@ namespace CodeBase.Infrastructure.Services.Factory
         private const int Capacity = 30;
         
         private readonly ObjectPool _pool = new ObjectPool();
-        private readonly IAssetProvider _assetProvider;
-        private readonly IStaticDataService _staticData;
+        private readonly BulletStaticData _bulletData;
 
-        public BulletFactory(IAssetProvider assetProvider, IStaticDataService staticData)
+
+        public BulletFactory(IStaticDataService staticData)
         {
-            _assetProvider = assetProvider;
-            _staticData = staticData;
+            _bulletData = staticData.BulletStaticData();
         }
 
         public void InitializePool(Transform parent) => 
-            _pool.Initialize(_assetProvider, AssetPath.BulletPath, parent, Capacity);
+            _pool.Initialize(_bulletData.Prefab, parent, Capacity);
         
         public GameObject CreateBullet(Transform parent)
         {
@@ -30,10 +29,10 @@ namespace CodeBase.Infrastructure.Services.Factory
                 bullet.GetComponent<Bullet.Bullet>().Construct(parent);
                 
                 BulletAttack bulletAttack = bullet.GetComponent<BulletAttack>();
-                bulletAttack.Damage = _staticData.BulletStaticData().Damage;
+                bulletAttack.Damage = _bulletData.Damage;
                 bulletAttack.Construct(parent);
 
-                bullet.GetComponent<BulletMover>().Speed = _staticData.BulletStaticData().Speed;
+                bullet.GetComponent<BulletMover>().Speed = _bulletData.Speed;
                 
                 bullet.transform.parent.position = parent.position;
                 bullet.transform.parent = null;
@@ -41,7 +40,7 @@ namespace CodeBase.Infrastructure.Services.Factory
                 return bullet;
             }
 
-            return _assetProvider.Instantiate(AssetPath.BulletPath, parent.position);
+            return Object.Instantiate(_bulletData.Prefab, parent.position, Quaternion.identity);
         }
         
         public void Clear() => _pool.Clear();

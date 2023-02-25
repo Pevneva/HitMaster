@@ -3023,6 +3023,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy_2
       objectReference: {fileID: 0}
+    - target: {fileID: 310262013597640103, guid: a8cd98f2c5336974f8011defb5f41c6c, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 775bd7e592622b649a808b5e490fc5e6, type: 2}
     - target: {fileID: 2562382856257059969, guid: a8cd98f2c5336974f8011defb5f41c6c, type: 3}
       propertyPath: m_Height
       value: 1.7715297
@@ -3044,6 +3048,10 @@ PrefabInstance:
       value: -0.02335924
       objectReference: {fileID: 0}
     - target: {fileID: 6137289783733193080, guid: a8cd98f2c5336974f8011defb5f41c6c, type: 3}
+      propertyPath: _animator
+      value: 
+      objectReference: {fileID: 495896446139775468}
+    - target: {fileID: 6137289783733193080, guid: a8cd98f2c5336974f8011defb5f41c6c, type: 3}
       propertyPath: _rigidBodySetter
       value: 
       objectReference: {fileID: 4790918183949499732}
@@ -3061,6 +3069,11 @@ Transform:
 --- !u!1 &496084226296116424 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 310171548794169475, guid: a8cd98f2c5336974f8011defb5f41c6c, type: 3}
+  m_PrefabInstance: {fileID: 193516902344219723}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &495896446139775468 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 310262013597640103, guid: a8cd98f2c5336974f8011defb5f41c6c, type: 3}
   m_PrefabInstance: {fileID: 193516902344219723}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &4790918183949499732

@@ -12,5 +12,7 @@ namespace CodeBase.StaticData
         [Range(0, 5)] public float DelayBeforeRestartLevel = 3;
 
         [Range(0.5f, 15)] public float Speed = 5f;
+
+        public GameObject Prefab;
     }
 }

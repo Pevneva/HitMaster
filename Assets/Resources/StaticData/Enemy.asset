@@ -15,3 +15,4 @@ MonoBehaviour:
   Hp: 31
   DelayAfterDeath: 5
   SpeedRotateToPlayer: 7
+  Prefab: {fileID: 496084226296116424, guid: f9e136e3247e1af4ea15827bff651d0e, type: 3}

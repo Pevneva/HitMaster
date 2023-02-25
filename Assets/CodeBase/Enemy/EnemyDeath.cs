@@ -8,6 +8,7 @@ namespace CodeBase.Enemy
     {
         [SerializeField] private EnemyHealth _health;
         [SerializeField] private RigidBodySetter _rigidBodySetter;
+        [SerializeField] private Animator _animator;
 
         public float DeathTime { get; set; }
 
@@ -33,7 +34,8 @@ namespace CodeBase.Enemy
             _health.HealthChanged -= CheckDeath;
             
             _rigidBodySetter.TurnOffKinematic();
-
+            _animator.enabled = false;
+            
             Happened?.Invoke();
             Invoke(nameof(DestroyEnemy), DeathTime);
         }

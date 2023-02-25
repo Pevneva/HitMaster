@@ -36,7 +36,7 @@ namespace CodeBase.Infrastructure.Services.Factory
         {
             EnemyStaticData enemyData = _staticData.EnemyStaticData();
             
-            GameObject enemy = Instantiate(AssetPath.EnemyPrefab, at, parent);
+            GameObject enemy = Object.Instantiate(enemyData.Prefab, at, Quaternion.identity, parent);
             
             RotateToPlayer rotateToPlayer = enemy.GetComponent<RotateToPlayer>();
             rotateToPlayer.Construct(PlayerTransform);
@@ -57,7 +57,7 @@ namespace CodeBase.Infrastructure.Services.Factory
         {
             PlayerStaticData playerData = _staticData.PlayerStaticData();
             
-            GameObject player = Instantiate(AssetPath.PlayerPrefab, at);
+            GameObject player = Object.Instantiate(playerData.Prefab, at, Quaternion.identity);
 
             PlayerTransform = player.transform;
                 
@@ -72,18 +72,6 @@ namespace CodeBase.Infrastructure.Services.Factory
             PlayerAttack.DelayBeforeRestartLevel = playerData.DelayBeforeRestartLevel;
             
             return player;
-        }
-
-        private GameObject Instantiate(string prefabPath, Vector3 at)
-        {
-            GameObject gameObject = _assets.Instantiate(prefabPath, at);
-            return gameObject;
-        }
-        
-        private GameObject Instantiate(string prefabPath, Vector3 at, Transform parent)
-        {
-            GameObject gameObject = _assets.Instantiate(prefabPath, at, parent);
-            return gameObject;
         }
     }
 }

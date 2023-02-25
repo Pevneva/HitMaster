@@ -1,6 +1,4 @@
-﻿using CodeBase.Infrastructure.Services.AssetManagment;
-
-namespace CodeBase.Infrastructure.Services.Factory
+﻿namespace CodeBase.Infrastructure.Services.Factory
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -14,12 +12,12 @@ namespace CodeBase.Infrastructure.Services.Factory
         
             private Transform _parent;
 
-            public void Initialize(IAssetProvider assetProvider, string prefab, Transform container, int capacity)
+            public void Initialize(GameObject prefab, Transform container, int capacity)
             {
                 _parent = container;
                 for (int i = 0; i < capacity; i++)
                 {
-                    GameObject poolObject = assetProvider.Instantiate(path: prefab, parent: container);
+                    GameObject poolObject = Object.Instantiate(prefab, parent: container);
                     poolObject.SetActive(value: false);
 
                     _pool.Add(item: poolObject);

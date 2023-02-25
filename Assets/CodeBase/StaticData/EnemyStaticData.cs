@@ -10,5 +10,7 @@ namespace CodeBase.StaticData
         [Range(1, 5)] public float DelayAfterDeath = 2;
 
         [Range(1, 10)] public float SpeedRotateToPlayer = 7;
+
+        public GameObject Prefab;
     }
 }
