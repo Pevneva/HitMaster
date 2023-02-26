@@ -13,10 +13,8 @@ namespace CodeBase.Infrastructure.Services.Factory
         private readonly ObjectPool _pool = new ObjectPool();
         private readonly BulletStaticData _bulletData;
 
-        public BulletFactory(IStaticDataService staticData)
-        {
+        public BulletFactory(IStaticDataService staticData) =>
             _bulletData = staticData.BulletStaticData();
-        }
 
         public void InitializePool(Transform parent) =>
             _pool.Initialize(_bulletData.Prefab, parent, Capacity);

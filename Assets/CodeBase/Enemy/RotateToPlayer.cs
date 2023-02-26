@@ -9,10 +9,10 @@ namespace CodeBase.Enemy
         private Transform _playerTransform;
         private Vector3 _positionToLook;
 
-        private void Update() => 
+        private void Update() =>
             RotateTowardsHero();
 
-        public void Construct(Transform playerTransform) => 
+        public void Construct(Transform playerTransform) =>
             _playerTransform = playerTransform;
 
         private void RotateTowardsHero()
@@ -28,13 +28,13 @@ namespace CodeBase.Enemy
             _positionToLook = new Vector3(positionDiff.x, 0, positionDiff.z);
         }
 
-        private Quaternion SmoothedRotation(Quaternion rotation, Vector3 position) => 
+        private Quaternion SmoothedRotation(Quaternion rotation, Vector3 position) =>
             Quaternion.Lerp(rotation, TargetRotation(position), SpeedFactor());
 
         private static Quaternion TargetRotation(Vector3 position)
             => Quaternion.LookRotation(position);
 
-        private float SpeedFactor() => 
+        private float SpeedFactor() =>
             Speed * Time.deltaTime;
     }
 }

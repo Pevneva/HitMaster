@@ -5,20 +5,20 @@ namespace CodeBase.Bullet
 {
     public class Bullet : MonoBehaviour
     {
-        private const int LifeTime = 3;
-        
+        private const float LifeTime = 1f;
+
         private Coroutine _enablingCoroutine;
         private Transform _playerTransform;
 
-        public void Construct(Transform player) => 
+        public void Construct(Transform player) =>
             _playerTransform = player;
 
-        private void OnEnable() => 
+        private void OnEnable() =>
             _enablingCoroutine = StartCoroutine(routine: StartEnablingTimer());
 
         private void OnDisable()
         {
-            if (_enablingCoroutine != null) 
+            if (_enablingCoroutine != null)
                 StopCoroutine(routine: _enablingCoroutine);
         }
 

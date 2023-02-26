@@ -21,14 +21,14 @@ namespace CodeBase.Player
         {
             get => _agent.speed;
             set => _agent.speed = value;
-        } 
+        }
 
         public event Action WayPointReached;
 
         public void Construct(ILevelPathService levelPathService) =>
             _levelPathService = levelPathService;
 
-        private void Start() => 
+        private void Start() =>
             _enemiesAtPointDefeated = true;
 
         private void Update()
@@ -71,6 +71,7 @@ namespace CodeBase.Player
             _nextPointPosition = _levelPathService.WayPointPosition(id);
 
         private bool IsPointReached() =>
-            Vector3.Distance(a: _agent.transform.position, b: _nextPointPosition) < Constants.Epsilon + _collider.size.y/2;
+            Vector3.Distance(a: _agent.transform.position, b: _nextPointPosition) <
+            Constants.Epsilon + _collider.size.y / 2;
     }
 }

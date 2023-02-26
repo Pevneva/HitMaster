@@ -12,7 +12,7 @@ namespace CodeBase.Player
     public class PlayerAttack : MonoBehaviour
     {
         private const float ShootHeight = 1.25f;
-        
+
         public float AttackCooldown { get; set; }
         public float DelayBeforeMoving { get; set; }
         public float DelayBeforeRestartLevel { get; set; }
@@ -23,7 +23,6 @@ namespace CodeBase.Player
         private Vector3 _attackDirection;
         private bool _isAttackState;
         private float _attackCooldown;
-
         private int _diedEnemiesCount;
         private ILevelPathService _levelPathService;
 
@@ -64,7 +63,7 @@ namespace CodeBase.Player
         {
             _isAttackState = true;
             _diedEnemiesCount = 0;
-            
+
             int enemiesOnPoint = _levelPathService.EnemiesCountAtPoint(_levelPathService.CurrentPointNumber);
 
             CheckDiedEnemies(enemiesOnPoint);
