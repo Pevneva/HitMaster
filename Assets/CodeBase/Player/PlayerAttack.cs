@@ -12,10 +12,7 @@ namespace CodeBase.Player
     public class PlayerAttack : MonoBehaviour
     {
         private const float ShootHeight = 1.25f;
-        // private const float AttackCooldown = 0.5f;
-        // private const float DelayBeforeMoving = 0.55f;
-        // private const float DelayBeforeRestartLevel = 3;
-
+        
         public float AttackCooldown { get; set; }
         public float DelayBeforeMoving { get; set; }
         public float DelayBeforeRestartLevel { get; set; }

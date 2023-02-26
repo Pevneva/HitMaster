@@ -18,6 +18,7 @@ namespace CodeBase.Infrastructure.Services.Factory
         private readonly IInputService _inputService;
         private readonly IBulletFactory _bulletFactory;
         private readonly ILevelPathService _levelPathService;
+        
         public PlayerMover PlayerMover { get; set; }
         public PlayerAttack PlayerAttack { get; set; }
         public Transform PlayerTransform { get; set; }
@@ -51,6 +52,17 @@ namespace CodeBase.Infrastructure.Services.Factory
             EnemyDeath.DeathTime = enemyData.DelayAfterDeath;
 
             enemy.GetComponent<EnemyDeath>().Happened += PlayerAttack.IncreaseDiedEnemies;
+        }
+
+        public GameObject CreateCamera()
+        {
+            GameObject camera = _assets.Instantiate(AssetPath.CameraPrefab);
+            return camera;
+        }
+
+        public GameObject CreateHud()
+        {
+            return _assets.Instantiate(AssetPath.HudPrefab);
         }
 
         public GameObject CreatePlayer(Vector3 at)

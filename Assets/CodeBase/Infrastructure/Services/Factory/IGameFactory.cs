@@ -1,5 +1,4 @@
-﻿using CodeBase.Enemy;
-using CodeBase.Player;
+﻿using CodeBase.Player;
 using UnityEngine;
 
 namespace CodeBase.Infrastructure.Services.Factory
@@ -9,9 +8,8 @@ namespace CodeBase.Infrastructure.Services.Factory
         GameObject CreatePlayer(Vector3 at);
         PlayerMover PlayerMover { get; }
         PlayerAttack PlayerAttack { get; }
-        // Transform PlayerTransform { get; set; }
-        // EnemyDeath EnemyDeath { get; set; }
-        // void CreateEnemy(Vector3 at);
         void CreateEnemy(Vector3 at, Transform parent);
+        GameObject CreateCamera();
+        GameObject CreateHud();
     }
 }

@@ -1,4 +1,5 @@
 ﻿using CodeBase.Infrastructure.Services.Factory;
+using TMPro;
 
 namespace CodeBase.Infrastructure.States
 {
@@ -27,7 +28,7 @@ namespace CodeBase.Infrastructure.States
         {
             _factory.PlayerAttack.Finished -= Restart;
             _factory.PlayerAttack.EnemiesDefeated -= EnterMovingState;
-            _stateMachine.Enter<PlayerMoveState>();
+            _stateMachine.Enter<PlayerMoveState, TextMeshProUGUI>(null);
         }
 
         private void Restart() => 

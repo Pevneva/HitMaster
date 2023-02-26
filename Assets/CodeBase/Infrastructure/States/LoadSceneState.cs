@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
-using CodeBase.CameraLogic;
+using Cinemachine;
 using CodeBase.Infrastructure.Services.Factory;
 using CodeBase.Infrastructure.Services.StaticData;
 using CodeBase.Logic;
 using CodeBase.StaticData;
+using TMPro;
 using UnityEngine;
 
 namespace CodeBase.Infrastructure.States
@@ -17,6 +18,7 @@ namespace CodeBase.Infrastructure.States
         private readonly LoadingCurtain _loadingCurtain;
         private readonly IGameFactory _gameFactory;
         private readonly IStaticDataService _staticData;
+        private TextMeshProUGUI _hudText;
 
         public LoadSceneState(GameStateMachine stateMachine, SceneLoader sceneLoader, LoadingCurtain loadingCurtain,
             IGameFactory gameFactory, IStaticDataService staticData)
@@ -41,16 +43,20 @@ namespace CodeBase.Infrastructure.States
         {
             InitGameWorld();
             
-            _stateMachine.Enter<BeforeStartState>();
+            _stateMachine.Enter<BeforeStartState, TextMeshProUGUI>(_hudText);
         }
 
         private void InitGameWorld()
         {
-            GameObject hero = InitPlayer();
+            GameObject player = InitPlayer();
             
             InitEnemies();
 
-            CameraFollow(following: hero);
+            GameObject camera = InitCamera();
+            
+            CameraFollow(camera, player);
+
+            InitHud();
         }
 
         private GameObject InitPlayer()
@@ -74,11 +80,23 @@ namespace CodeBase.Infrastructure.States
             }
         }
 
-        private void CameraFollow(GameObject following)
+        private GameObject InitCamera()
         {
-            Camera.main
-                .GetComponent<CameraFollow>()
-                .Follow(following: following);
+            GameObject camera = _gameFactory.CreateCamera();
+            return camera;           
+        }
+
+        private static void CameraFollow(GameObject camera, GameObject target)
+        {
+            CinemachineVirtualCamera virtualCamera = camera.GetComponent<CinemachineVirtualCamera>();
+            virtualCamera.Follow = target.transform;
+            virtualCamera.LookAt = target.transform;
+        }
+
+        private void InitHud()
+        {
+            GameObject hud = _gameFactory.CreateHud();
+            _hudText = hud.GetComponentInChildren<TextMeshProUGUI>();
         }
     }
 }
