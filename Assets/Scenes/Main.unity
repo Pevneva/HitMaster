@@ -510,6 +510,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WayPointMarker (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 2960426712977923116, guid: 2ac5ff27e1394d74f8b6db5612800a6a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8069160011800405393, guid: 2ac5ff27e1394d74f8b6db5612800a6a, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -2358,6 +2362,10 @@ PrefabInstance:
     - target: {fileID: 2960426712977923116, guid: 2ac5ff27e1394d74f8b6db5612800a6a, type: 3}
       propertyPath: m_Name
       value: WayPointMarker (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2960426712977923116, guid: 2ac5ff27e1394d74f8b6db5612800a6a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8069160011800405393, guid: 2ac5ff27e1394d74f8b6db5612800a6a, type: 3}
       propertyPath: m_RootOrder
@@ -4918,6 +4926,10 @@ PrefabInstance:
     - target: {fileID: 2960426712977923116, guid: 2ac5ff27e1394d74f8b6db5612800a6a, type: 3}
       propertyPath: m_Name
       value: WayPointMarker (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2960426712977923116, guid: 2ac5ff27e1394d74f8b6db5612800a6a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8069160011800405393, guid: 2ac5ff27e1394d74f8b6db5612800a6a, type: 3}
       propertyPath: m_RootOrder
