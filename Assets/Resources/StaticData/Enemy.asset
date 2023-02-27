@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec4219f349f94fe099918bf14eb5a72f, type: 3}
   m_Name: Enemy
   m_EditorClassIdentifier: 
-  Hp: 31
-  DelayAfterDeath: 5
-  SpeedRotateToPlayer: 7
-  Prefab: {fileID: 496084226296116424, guid: f9e136e3247e1af4ea15827bff651d0e, type: 3}
+  _hp: 10
+  _delayAfterDeath: 2
+  _speedRotateToPlayer: 7
+  _prefab: {fileID: 496084226296116424, guid: f9e136e3247e1af4ea15827bff651d0e, type: 3}

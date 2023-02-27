@@ -14,15 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AllWayPoints:
   - EnemiesCount: 0
-    At: {x: -1.2699933, y: 11.99, z: -12.610161}
+    _at: {x: 0, y: 0, z: 0}
     EnemyDatas: []
   - EnemiesCount: 1
-    At: {x: -0.189991, y: 11.930003, z: -7.150139}
-    EnemyDatas:
-    - Position: {x: 1.040009, y: 11.360003, z: -4.210139}
+    _at: {x: 0, y: 0, z: 0}
+    EnemyDatas: []
   - EnemiesCount: 3
-    At: {x: -2.05, y: 11.65, z: 2.13}
-    EnemyDatas:
-    - Position: {x: 1.44, y: 11.639999, z: 3.29}
-    - Position: {x: -3.76, y: 11.62, z: 5.1400003}
-    - Position: {x: 1.55, y: 11.65, z: 6.59}
+    _at: {x: 0, y: 0, z: 0}
+    EnemyDatas: []

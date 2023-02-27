@@ -7,16 +7,18 @@ namespace CodeBase.StaticData
     [Serializable]
     public class PointSpawnData
     {
-        [HideInInspector] public int EnemiesCount;
-        
-        public Vector3 At;
+        [HideInInspector] [SerializeField] private int _enemiesCount;
+        [SerializeField] private Vector3 _at;
+
         public List<EnemySpawnData> EnemyDatas;
+        public Vector3 At => _at;
+        public int EnemiesCount => _enemiesCount;
 
         public PointSpawnData(Vector3 at, int enemiesCount, List<EnemySpawnData> enemyDatas)
         {
-            At = at;
+            _at = at;
             EnemyDatas = enemyDatas;
-            EnemiesCount = enemiesCount;
+            _enemiesCount = enemiesCount;
         }
     }
 }
