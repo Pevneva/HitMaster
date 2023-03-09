@@ -71,7 +71,7 @@ namespace CodeBase.Player
             _nextPointPosition = _levelPathService.WayPointPosition(id);
 
         private bool IsPointReached() =>
-            Vector3.Distance(a: _agent.transform.position, b: _nextPointPosition) <
-            Constants.Epsilon + _collider.size.y / 2;
+            Vector3.SqrMagnitude(_agent.transform.position - _nextPointPosition) <
+            _collider.size.y / 2 * _collider.size.y/2;
     }
 }

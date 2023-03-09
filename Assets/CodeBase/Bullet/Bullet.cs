@@ -5,10 +5,10 @@ namespace CodeBase.Bullet
 {
     public class Bullet : MonoBehaviour
     {
-        private const float LifeTime = 1f;
-
         private Coroutine _enablingCoroutine;
         private Transform _playerTransform;
+
+        public float LifeTime { get; set; }
 
         public void Construct(Transform player) =>
             _playerTransform = player;

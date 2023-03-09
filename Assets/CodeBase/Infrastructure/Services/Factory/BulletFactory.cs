@@ -21,20 +21,22 @@ namespace CodeBase.Infrastructure.Services.Factory
 
         public GameObject CreateBullet(Transform parent)
         {
-            if (_pool.TryGetObject(out GameObject bullet))
+            if (_pool.TryGetObject(out GameObject bulletObject))
             {
-                bullet.GetComponent<Bullet.Bullet>().Construct(parent);
+                Bullet.Bullet bullet = bulletObject.GetComponent<Bullet.Bullet>();
+                bullet.Construct(parent);
+                bullet.LifeTime = _bulletData.LifeTime;
 
-                BulletAttack bulletAttack = bullet.GetComponent<BulletAttack>();
+                BulletAttack bulletAttack = bulletObject.GetComponent<BulletAttack>();
                 bulletAttack.Damage = _bulletData.Damage;
                 bulletAttack.Construct(parent);
 
-                bullet.GetComponent<BulletMover>().Speed = _bulletData.Speed;
+                bulletObject.GetComponent<BulletMover>().Speed = _bulletData.Speed;
 
-                bullet.transform.parent.position = parent.position;
-                bullet.transform.parent = null;
-                bullet.transform.rotation = Quaternion.Euler(Vector3.zero);
-                return bullet;
+                bulletObject.transform.parent.position = parent.position;
+                bulletObject.transform.parent = null;
+                bulletObject.transform.rotation = Quaternion.Euler(Vector3.zero);
+                return bulletObject;
             }
 
             return Object.Instantiate(_bulletData.Prefab, parent.position, Quaternion.identity);

@@ -13,12 +13,33 @@ MonoBehaviour:
   m_Name: LevelPath
   m_EditorClassIdentifier: 
   AllWayPoints:
-  - EnemiesCount: 0
-    _at: {x: 0, y: 0, z: 0}
+  - _enemiesCount: 0
+    _at: {x: -1.2699933, y: 11.99, z: -12.610161}
     EnemyDatas: []
-  - EnemiesCount: 1
-    _at: {x: 0, y: 0, z: 0}
-    EnemyDatas: []
-  - EnemiesCount: 3
-    _at: {x: 0, y: 0, z: 0}
-    EnemyDatas: []
+  - _enemiesCount: 1
+    _at: {x: -0.189991, y: 11.930003, z: -7.150139}
+    EnemyDatas:
+    - _position: {x: 1.040009, y: 11.360003, z: -4.210139}
+  - _enemiesCount: 3
+    _at: {x: -2.05, y: 11.65, z: 2.13}
+    EnemyDatas:
+    - _position: {x: 1.44, y: 11.639999, z: 3.29}
+    - _position: {x: -3.76, y: 11.62, z: 5.1400003}
+    - _position: {x: 1.55, y: 11.65, z: 6.59}
+  - _enemiesCount: 3
+    _at: {x: 0.223, y: 11.37, z: 12.301}
+    EnemyDatas:
+    - _position: {x: 5.09, y: 11.389999, z: 14.45}
+    - _position: {x: 4.71, y: 11.45, z: 16.65}
+    - _position: {x: 1.66, y: 11.33, z: 17.1}
+  - _enemiesCount: 1
+    _at: {x: 4.1, y: 11.34, z: 19.44}
+    EnemyDatas:
+    - _position: {x: 6.83, y: 11.29, z: 20.83}
+  - _enemiesCount: 4
+    _at: {x: 5.74, y: 12.64, z: 26.86}
+    EnemyDatas:
+    - _position: {x: 8.58, y: 12.64, z: 28.02}
+    - _position: {x: 4.8399997, y: 12.570001, z: 29.650002}
+    - _position: {x: 6.6699996, y: 12.610001, z: 28.04}
+    - _position: {x: 3.83, y: 12.52, z: 28.69}

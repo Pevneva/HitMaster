@@ -25,6 +25,7 @@ namespace CodeBase.Player
         private float _attackCooldown;
         private int _diedEnemiesCount;
         private ILevelPathService _levelPathService;
+        private Camera _camera;
 
         public event Action EnemiesDefeated;
         public event Action Finished;
@@ -41,6 +42,7 @@ namespace CodeBase.Player
         {
             _bulletContainer = transform.GetComponentInChildren<BulletsContainer>().transform;
             _bulletFactory.InitializePool(_bulletContainer);
+            _camera = Camera.main;
         }
 
         private void Update()
@@ -109,7 +111,7 @@ namespace CodeBase.Player
 
         private Vector3 GetAttackDirection(Vector3 attackPosition)
         {
-            Vector2 screenDirection = attackPosition - Camera.main.WorldToScreenPoint(transform.position);
+            Vector2 screenDirection = attackPosition - _camera.WorldToScreenPoint(transform.position);
             Vector3 worldDirection = new Vector3(screenDirection.x, 0, screenDirection.y);
             worldDirection.Normalize();
 
